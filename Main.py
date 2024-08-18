@@ -1,8 +1,13 @@
+#这是一段Python代码
+#MC群峦TFC锻造计算器
+#作者：lcxs
+#QQ:2979283511
+
 #定义部分
 
 def HeFa1(X):
     '''
-    判断倒数第X目标是否合法.
+    判断倒数第X目标是否合法.若合法输出True.
     '''
     if X!=int(11) and X!=int(12) and X!=int(13) and X!=int(14) and X!=int(21) and X!=int(22) and X!=int(23) and X!=int(24):
         return False
@@ -11,7 +16,7 @@ def HeFa1(X):
 
 def HeFa2(X):
     '''
-    判断输入的数字是否在0到100之间.
+    判断输入的数字是否在0到100之间.若是.输出True
     '''
     if X>=int(0) and X<=(100):
         return True
@@ -20,7 +25,7 @@ def HeFa2(X):
 
 def ZhuanHuanZhengShu(X):
     '''
-    将倒数目标代数转换为真实整数.
+    将倒数目标代数转换为真实整数.即转换为对应的数字.例如11是‘击打’即转换为-3.
     '''
     if X ==int(11):
         X=-3
@@ -76,6 +81,8 @@ def ZhuanHuanHanZi(X):
 while True:
 
     while True:
+        print('11轻击 12击打 13冲压 14弯曲 ')
+        print('21重击 22牵拉 23镦锻 24收缩 ')
         D1 = int(input('请输入倒数第一个方法:'))
         if HeFa1(D1)==True:
             break
@@ -107,16 +114,16 @@ while True:
 
 #计算部分
 
-    #计算真实目标点数
-    R1 = S1 - ZhuanHuanZhengShu(D1) - ZhuanHuanZhengShu(D2) -ZhuanHuanZhengShu(D3) - S2
-    #取真实目标点数整除收缩数
+    #反推去掉倒数三步后的点数，即进行完倒数第四步后所剩的点数.
+    R1 = S1 - ZhuanHuanZhengShu(D1) - ZhuanHuanZhengShu(D2) -ZhuanHuanZhengShu(D3) - S2 #进行完倒数第四步后所剩的点数.
+    #取真实目标点数整除收缩数，即所需‘收缩’步数.
     Q1 = R1 // int(16)
-    #计算剩下的点数
+    #计算进行‘收缩’步数后剩下的点数.
     Q2 = R1 - (Q1*int(16))
-
-    if Q2==int(0):
-        W = '0'
-    elif Q2==int(1):
+    #将剩下点数的所有可能根据以下步骤进行配凑，即进行完以下步骤后点数正好可以等于进行完倒数第四步后所剩的点数.
+    if Q2==int(0):#以下是我配凑出的方法，可能不是最简，如果你有最简方法请告诉我.
+        W = '○'
+    elif Q2==int(1):#例如：弯曲（+7）击打（-6）后，（+7）+（-6）=+1，整体步数+1.
         W = '①弯曲 击打 '
     elif Q2==int(2):
         W = '②冲压 '
@@ -135,19 +142,20 @@ while True:
     elif Q2==int(9):
         W = '⑨冲压 弯曲 '
     elif Q2==int(10):
-        W = '⑩弯曲 收缩 轻击 '
+        W = '⑩镦锻 轻击 '
     elif Q2==int(11):
-        W = '①①镦锻 弯曲 重击 '
+        W = '⑪镦锻 弯曲 重击 '
     elif Q2==int(12):
-        W = '①②镦锻 冲压 轻击 '
+        W = '⑫镦锻 冲压 轻击 '
     elif Q2==int(13):
-        W = '①③镦锻 '
+        W = '⑬镦锻 '
     elif Q2==int(14):
-        W = '①④弯曲 弯曲 '
+        W = '⑭弯曲 弯曲 '
     elif Q2==int(15):
-        W = '①⑤收缩 冲压 牵拉 '
+        W = '⑮收缩 冲压 牵拉 '
     else:
         print('err')
+    #将倒数三步的数字代数转换为汉字.
     A1 = ZhuanHuanHanZi(D1)
     A2 = ZhuanHuanHanZi(D2)
     A3 = ZhuanHuanHanZi(D3)
