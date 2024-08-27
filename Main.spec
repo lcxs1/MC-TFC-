@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['C:\\Users\\lcxs1\\Desktop\\群峦计算器\\Main.py'],
+    ['Main.py'],
     pathex=[],
     binaries=[],
     datas=[],
